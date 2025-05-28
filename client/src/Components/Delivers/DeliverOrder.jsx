@@ -1,4 +1,5 @@
 
+
 // import * as React from 'react';
 // import Button from '@mui/material/Button';
 // import { styled } from '@mui/material/styles';
@@ -11,175 +12,42 @@
 // import Typography from '@mui/material/Typography';
 // import Axios from 'axios';
 // import { useSelector } from 'react-redux';
-// import { fetchDeliversContext } from '../Common/commonFunction';
+
+
 
 // const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//   '& .MuiDialogContent-root': {
-//     padding: theme.spacing(2),
-//   },
-//   '& .MuiDialogActions-root': {
-//     padding: theme.spacing(1),
-//   },
+//   '& .MuiDialogContent-root': { padding: theme.spacing(2) },
+//   '& .MuiDialogActions-root': { padding: theme.spacing(1) },
 // }));
 
-// const DeliverOrder = ({ fetchOrders, updateOrder, updateDeliver,setShow2, show2 }) => {
-
-//   const { delivers } = useContext(fetchDeliversContext);
+// const DeliverOrder = ({ fetchOrders, fetchDelivers, updateOrder, deliver, setShow2, show2 }) => {
 //   const deliverName = useSelector(state => state.token.name);
-//   if (!updateOrder) return null;
 
-//   const handleClose = () => {
-//     setShow2(false);
-//   };
-
-//   const updateDeliverName= async () => {
-//     try {
-//       const res = await Axios.put("http://localhost:1700/api/order", {
-//         _id: updateOrder._id,
-//         ordername: updateOrder.ordername,
-//         status: updateOrder.status,
-//         shopname: updateOrder.shopname,
-//         delivername: deliverName,
-//         description: updateOrder.description,
-//         imageUrl: updateOrder.imageUrl,
-//         address: updateOrder.address
-//       });
-//       fetchOrders();
-//       handleClose();
-//     } catch (error) {
-//       console.error("error update order", error);
-//     } 
-//   };
-
-//     const updateDeliverActive = async () => {
-//     try {
-//       const res2 = await Axios.put("http://localhost:1700/api/deliver", {
-//         _id: updateDeliver._id,
-//         username: updateDeliver.username,
-//         password: updateDeliver.password,
-//         name: updateDeliver.name,
-//         email: updateDeliver.email,
-//         phone: updateDeliver.phone,
-//         area: updateDeliver.area,
-//         active: true
-//       });
-
-//       delivers();
-//       handleClose();
-//     } catch (error) {
-//       console.error("error update deliver", error);
-//     }
- 
-//     }
-
-
-//   return (
-//     <React.Fragment>
-//       <BootstrapDialog
-//         onClose={handleClose}
-//         aria-labelledby="customized-dialog-title"
-//         open={show2}
-//       >
-//         <DialogTitle
-//           sx={{
-//             m: 0,
-//             p: 2,
-//             minHeight: '100px',
-//             display: 'flex',
-//             flexDirection: 'column',
-//             alignItems: 'flex-start',
-//             gap: 1,
-//           }}
-//           id="customized-dialog-title"
-//         >
-//           <Typography variant="h6">{updateOrder.ordername}</Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             {updateOrder.description}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             כתובת: {updateOrder.address.city}, {updateOrder.address.street}
-//           </Typography>
-//         </DialogTitle>
-
-//         <IconButton
-//           aria-label="close"
-//           onClick={handleClose}
-//           sx={(theme) => ({
-//             position: 'absolute',
-//             right: 8,
-//             top: 8,
-//             color: theme.palette.grey[500],
-//           })}
-//         >
-//           <CloseIcon />
-//         </IconButton>
-
-//         <DialogContent dividers>
-//           <img
-//             src={updateOrder.imageUrl}
-//             alt="Preview"
-//             style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
-//           />
-//         </DialogContent>
-
-//         <DialogActions>
-//         <Button onClick={() => { updateDeliverName(); updateDeliverActive(); }}>
-//             Take Order
-//           </Button>
-//         </DialogActions>
-//       </BootstrapDialog>
-//     </React.Fragment>
-//   );
-// };
-
-// export default DeliverOrder;
-
-// import * as React from 'react';
-// import Button from '@mui/material/Button';
-// import { styled } from '@mui/material/styles';
-// import Dialog from '@mui/material/Dialog';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogActions from '@mui/material/DialogActions';
-// import IconButton from '@mui/material/IconButton';
-// import CloseIcon from '@mui/icons-material/Close';
-// import Typography from '@mui/material/Typography';
-// import Axios from 'axios';
-// import { useSelector } from 'react-redux';
-
-// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//   '& .MuiDialogContent-root': {
-//     padding: theme.spacing(2),
-//   },
-//   '& .MuiDialogActions-root': {
-//     padding: theme.spacing(1),
-//   },
-// }));
-
-// const DeliverOrder = ({ fetchOrders, updateOrder, deliver, setShow2, show2 }) => {
-// const deliverName = useSelector(state => state.token.name);
 
 //   if (!updateOrder) return null;
 
-//   const handleClose = () => {
-//     setShow2(false);
-//   };
+//   const handleClose = () => { setShow2(false); };
 
 //   const takeOrder = async () => {
 //     try {
-//       // עדכון ההזמנה עם שם השליח
+//       // 1. עדכון ההזמנה עם שם השליח
 //       await Axios.put("http://localhost:1700/api/order", {
 //         ...updateOrder,
-//         delivername: deliverName, // עדכון השדה
+//         delivername: deliverName,
 //       });
 
-//       // עדכון השליח כפעיל
+//       // 2. עדכון השליח כפעיל
 //       await Axios.put("http://localhost:1700/api/deliver", {
 //         ...deliver,
 //         active: true,
 //       });
 
-//       fetchOrders();
+//       // 3. קודם עדכון רשימת ההזמנות
+//       await fetchOrders();
+
+//       // 4. אחרי זה עדכון רשימת השליחים
+//       if (fetchDelivers) await fetchDelivers();
+
 //       handleClose();
 //     } catch (error) {
 //       console.error("error taking order", error);
@@ -196,38 +64,27 @@
 //       >
 //         <DialogTitle
 //           sx={{
-//             m: 0,
-//             p: 2,
-//             minHeight: '100px',
-//             display: 'flex',
-//             flexDirection: 'column',
-//             alignItems: 'flex-start',
-//             gap: 1,
+//             m: 0, p: 2, minHeight: '100px',
+//             display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1,
 //           }}
 //           id="customized-dialog-title"
 //         >
 //           <Typography variant="h6">{updateOrder.ordername}</Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             {updateOrder.description}
-//           </Typography>
+//           <Typography variant="body2" color="text.secondary">{updateOrder.description}</Typography>
 //           <Typography variant="body2" color="text.secondary">
 //             כתובת: {updateOrder.address.city}, {updateOrder.address.street}
 //           </Typography>
 //         </DialogTitle>
-
 //         <IconButton
 //           aria-label="close"
 //           onClick={handleClose}
 //           sx={(theme) => ({
-//             position: 'absolute',
-//             right: 8,
-//             top: 8,
+//             position: 'absolute', right: 8, top: 8,
 //             color: theme.palette.grey[500],
 //           })}
 //         >
 //           <CloseIcon />
 //         </IconButton>
-
 //         <DialogContent dividers>
 //           <img
 //             src={updateOrder.imageUrl}
@@ -235,11 +92,8 @@
 //             style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
 //           />
 //         </DialogContent>
-
 //         <DialogActions>
-//           <Button onClick={takeOrder}>
-//             Take Order
-//           </Button>
+//           <Button onClick={takeOrder}>לקחתי הזמנה</Button>
 //         </DialogActions>
 //       </BootstrapDialog>
 //     </React.Fragment>
@@ -247,6 +101,8 @@
 // };
 
 // export default DeliverOrder;
+
+// client/src/Components/Delivers/DeliverOrder.jsx
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
@@ -259,8 +115,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Axios from 'axios';
-import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+// ייבוא setDeliverActiveStatus במקום setToken לטיפול בסטטוס השליח
+import { setDeliverActiveStatus } from '../../redux/tokenSlice'; // וודאי שהנתיב נכון!
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -268,9 +125,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogActions-root': { padding: theme.spacing(1) },
 }));
 
-const DeliverOrder = ({ fetchOrders, fetchDelivers, updateOrder, deliver, setShow2, show2 }) => {
-  const deliverName = useSelector(state => state.token.name);
-
+const DeliverOrder = ({ fetchOrders, updateOrder, deliver, setShow2, show2 }) => {
+  // deliver שמגיע מ-props הוא אובייקט המשלוחן המלא מ-state.auth.user
+  const dispatch = useDispatch();
 
   if (!updateOrder) return null;
 
@@ -278,28 +135,36 @@ const DeliverOrder = ({ fetchOrders, fetchDelivers, updateOrder, deliver, setSho
 
   const takeOrder = async () => {
     try {
-      // 1. עדכון ההזמנה עם שם השליח
-      await Axios.put("http://localhost:1700/api/order", {
-        ...updateOrder,
-        delivername: deliverName,
+      // 1. עדכון ההזמנה: סטטוס "In delivery", ושם השליח
+      // חשוב לוודא שה-ID של ההזמנה נשלח ב-URL או ב-body
+      const updatedOrderResponse = await Axios.put(`http://localhost:1700/api/order/${updateOrder._id}`, {
+        status: "In delivery",
+        delivername: deliver.name, // שם השליח מאובייקט ה-deliver המלא
+        pickupTime: new Date().toISOString() // שמירת זמן הלקיחה
       });
 
-      // 2. עדכון השליח כפעיל
-      await Axios.put("http://localhost:1700/api/deliver", {
-        ...deliver,
-        active: true,
+      // 2. עדכון השליח: active: false, ו-currentOrder
+      // חשוב לוודא שה-ID של השליח נשלח ב-URL או ב-body
+      const updatedDeliverResponse = await Axios.put(`http://localhost:1700/api/deliver/${deliver._id}`, {
+        active: false,
+        currentOrder: updateOrder._id // שומרים את ה-ID של ההזמנה שהשליח לקח
       });
 
-      // 3. קודם עדכון רשימת ההזמנות
+      // 3. עדכון ה-Redux store עם פרטי המשלוחן המעודכנים (בעיקר active ו-currentOrder)
+      // נשתמש ב-setDeliverActiveStatus החדש
+      dispatch(setDeliverActiveStatus({
+          active: false,
+          currentOrder: updateOrder._id
+      }));
+
+      // 4. עדכון רשימת ההזמנות במסך (כדי שההזמנה שנלקחה תיעלם)
       await fetchOrders();
 
-      // 4. אחרי זה עדכון רשימת השליחים
-      if (fetchDelivers) await fetchDelivers();
-
       handleClose();
+      alert("הזמנה נלקחה בהצלחה!");
     } catch (error) {
-      console.error("error taking order", error);
-      alert("שגיאה בעדכון ההזמנה/השליח");
+      console.error("Error taking order:", error.response ? error.response.data : error.message);
+      alert("שגיאה בעדכון ההזמנה/השליח. אנא נסה שוב.");
     }
   };
 

@@ -37,7 +37,7 @@ default:"Deliver",
 },
 active: {
 type: Boolean,
-default: false,
+default: true,
 },
 },{timestamps:true})
 module.exports = mongoose.model("Deliver", deliverSchema)

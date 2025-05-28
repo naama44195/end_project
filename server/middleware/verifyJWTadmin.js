@@ -1,47 +1,58 @@
 // const jwt = require('jsonwebtoken')
-// const verifyJWTAdmain = (req, res, next) => {
+// const Admain = (req, res, next) => {
 //     console.log("dddddddd");
+//     console.log("Verifying admin access", req.user?.roles);
     
-//     const outhHeader = req.headers.authorization || req.headers.Authorization
-//     console.log(outhHeader);
-//     const token = outhHeader.split(' ')[1]
+//     const authHeader = req.headers['authorization'];
+//     if (!authHeader) {
+//         return res.status(401).json({ message: "No token provided" });
+//     }
+//     const token = authHeader.split(' ')[1];
 //     jwt.verify(
 //         token,
 //         process.env.ACCESS_TOKEN_SECRET,
 //         (err, decoded) => {
+//             if(decoded.roles!="Admin"){
+//                 return res.status(403).json({ message: 'Forbidden' })  
+//             }
 //             if (err) return res.status(403).json({ message: 'Forbidden' })
 //             req.user = decoded
 //         console.log(decoded);
-//             if (decoded.role!="Admin") {
+//             if (!req.user.roles.startsWith('Admin')) {
 //                 return res.status(403).json({ message: 'Forbidden Admin' })
 //             }
 //             next()
 //         }
 //     )
 // }
-// module.exports = verifyJWTAdmain
-
-
+// module.exports = Admain
 const jwt = require('jsonwebtoken');
 
-const verifyJWTAdmin = (req, res, next) => {
+const Admain = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
 
-    console.log("Verifying JWT for Admin...");
-    const authHeader = req.headers.authorization || req.headers.Authorization;
-    if (!authHeader?.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Unauthorized' });
+    if (!authHeader) {
+        return res.status(401).json({ message: "No token provided" });
     }
 
     const token = authHeader.split(' ')[1];
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) return res.status(403).json({ message: 'Forbidden' });
-        if (decoded.role !== "Admin") {
+
+        // שמירת המשתמש בפנים
+        req.user = decoded;
+
+        // הדפסת התפקידים
+        console.log("Decoded JWT:", decoded);
+        console.log("Verifying admin access:", req.user.roles);
+
+        if (!req.user.roles || req.user.roles !== "Admin") {
             return res.status(403).json({ message: 'Forbidden Admin' });
         }
-        req.user = decoded;
+
         next();
     });
 };
 
-module.exports = verifyJWTAdmin;
+module.exports = Admain;

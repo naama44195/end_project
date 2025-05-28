@@ -9,17 +9,19 @@ import Typography from '@mui/material/Typography';
 import { Box, Paper } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-
+import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
 const ListShop = () => {
   const [shops, setShops] = useState([]);
 
+   const token = useSelector((state) => state.token.token);
+
   const fetchShops = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const { data } = await axios.get("http://localhost:1700/api/Shop", {
+      
+      const { data } = await axios.get("http://localhost:1700/api/shop", {
         headers: {
           'Authorization': `Bearer ${token}`
         }
