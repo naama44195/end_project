@@ -44,7 +44,6 @@ const InProgressOrder = () => {
                 },
             });
 
-            // סינון לפי סטטוס "In progress"
             const filteredOrders = data.filter(order => order.status === 'In progress');
 
             setOrders(filteredOrders);
