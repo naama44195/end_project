@@ -70,7 +70,7 @@ const LazyListShop = React.lazy(() => import('./Components/Admin/ListShop'))
 const LazyDeliverActiveOrder = React.lazy(() => import('./Components/Delivers/DeliverActiveOrder')) // ייתכן ולא תצטרכי את זה כנתיב נפרד יותר
 const LazyOrders = React.lazy(() => import('./Components/Orders/ShopOrders'))
 const LazyLogOut = React.lazy(() => import('./Components/Common/LogOut'))
-const LazyUnclaimedOrders = React.lazy(() => import('./Components/Orders/UnclaimedOrders'));
+const LazyUndeliveredorders = React.lazy(() => import('./Components/Orders/Undeliveredorders'));
 
 function App() {
   // קבלת נתוני המשתמש מתוך אובייקט ה-user החדש ב-Redux
@@ -92,7 +92,7 @@ function App() {
 
         <Route path='/Shop' element={<LazyShopHome />}>
           <Route path='ShopOrders' element={<Suspense fallback="loading..."><LazyOrders /></Suspense>} />
-          <Route path='UnclaimedOrders' element={<Suspense fallback="loading..."><LazyUnclaimedOrders /></Suspense>} />
+          <Route path='Undeliveredorders' element={<Suspense fallback="loading..."><LazyUndeliveredorders /></Suspense>} />
 
           {/* <Route path='PendingOrders'element={ <Suspense fallback="loading..."> <LazyOrders onlyUnclaimed={true} /></Suspense>
             }

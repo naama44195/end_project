@@ -103,7 +103,7 @@ const getOrdersByCity = async (req, res) => {
   }
 };
 
-// ✅ Get Orders by Shop + onlyUnclaimed סינון לפי 10 דקות
+//  Get Orders by Shop  סינון לפי 10 דקות
 const getOrdersByShop = async (req, res) => {
   const { shopname } = req.params;
   const { onlyUnclaimed } = req.query;

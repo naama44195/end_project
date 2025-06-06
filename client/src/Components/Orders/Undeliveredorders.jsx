@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Box, Typography, Grid, CircularProgress } from '@mui/material';
 import OrderCard from './OrderCard';
 
-const UnclaimedOrders = () => {
+const Undeliveredorders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const shopName = useSelector(state => state.auth.user?.name);
@@ -58,4 +58,4 @@ const UnclaimedOrders = () => {
   );
 };
 
-export default UnclaimedOrders;
+export default Undeliveredorders;
