@@ -58,6 +58,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
+
 // import MainLayout from './Components/Layout/MainLayout';
 import Admin from "./Components/Admin/Admin";
 
@@ -71,6 +72,7 @@ const LazyDeliverActiveOrder = React.lazy(() => import('./Components/Delivers/De
 const LazyOrders = React.lazy(() => import('./Components/Orders/ShopOrders'))
 const LazyLogOut = React.lazy(() => import('./Components/Common/LogOut'))
 const LazyUndeliveredorders = React.lazy(() => import('./Components/Orders/Undeliveredorders'));
+const LazyInProgressOrder=React.lazy(()=>import('./Components/Orders/InProgressOrder')) 
 
 function App() {
   // קבלת נתוני המשתמש מתוך אובייקט ה-user החדש ב-Redux
@@ -93,6 +95,7 @@ function App() {
         <Route path='/Shop' element={<LazyShopHome />}>
           <Route path='ShopOrders' element={<Suspense fallback="loading..."><LazyOrders /></Suspense>} />
           <Route path='Undeliveredorders' element={<Suspense fallback="loading..."><LazyUndeliveredorders /></Suspense>} />
+          <Route path='InProgressOrder' element={<Suspense fallback="loading..."><LazyInProgressOrder /></Suspense>} />
 
           {/* <Route path='PendingOrders'element={ <Suspense fallback="loading..."> <LazyOrders onlyUnclaimed={true} /></Suspense>
             }
